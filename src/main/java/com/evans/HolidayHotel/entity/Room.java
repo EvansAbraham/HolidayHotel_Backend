@@ -17,7 +17,6 @@ public class Room {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String bookingConfirmationCode;
     private String roomType;
     private BigDecimal roomPrice;
     private String roomPhotoUrl;
@@ -25,11 +24,11 @@ public class Room {
     @OneToMany(mappedBy = "room", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Booking> bookings = new ArrayList<>();
 
+
     @Override
     public String toString() {
         return "Room{" +
                 "id=" + id +
-                ", bookingConfirmationCode='" + bookingConfirmationCode + '\'' +
                 ", roomType='" + roomType + '\'' +
                 ", roomPrice=" + roomPrice +
                 ", roomPhotoUrl='" + roomPhotoUrl + '\'' +

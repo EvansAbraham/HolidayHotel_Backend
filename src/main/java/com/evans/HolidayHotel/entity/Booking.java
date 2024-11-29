@@ -18,18 +18,19 @@ public class Booking {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull(message = "check in date is required!")
+    @NotNull(message = "check in date is required")
     private LocalDate checkInDate;
-    @Future(message = "check out date must be after the check in date!")
+
+    @Future(message = "check out date must be in the future")
     private LocalDate checkOutDate;
 
-    @Min(value = 1, message = "number of adults must be at least 1")
+    @Min(value = 1, message = "Number of adults must not be less that 1")
     private int numOfAdults;
 
-    @Min(value = 0, message = "number of children must not be under 0")
+    @Min(value = 0, message = "Number of children must not be less that 0")
     private int numOfChildren;
 
-    private int totalNumOfGuests;
+    private int totalNumOfGuest;
 
     private String bookingConfirmationCode;
 
@@ -41,18 +42,18 @@ public class Booking {
     @JoinColumn(name = "room_id")
     private Room room;
 
-    public void calculateNumberOfGuests(){
-        this.totalNumOfGuests = this.numOfAdults + this.numOfChildren;
+    public void calculateTotalNumberOfGuest() {
+        this.totalNumOfGuest = this.numOfAdults + this.numOfChildren;
     }
 
-    public void setNumOfAdults(int numOfAdults){
+    public void setNumOfAdults(int numOfAdults) {
         this.numOfAdults = numOfAdults;
-        calculateNumberOfGuests();
+        calculateTotalNumberOfGuest();
     }
 
-    public void setNumOfChildren(int numOfChildren){
+    public void setNumOfChildren(int numOfChildren) {
         this.numOfChildren = numOfChildren;
-        calculateNumberOfGuests();
+        calculateTotalNumberOfGuest();
     }
 
     @Override
@@ -63,9 +64,8 @@ public class Booking {
                 ", checkOutDate=" + checkOutDate +
                 ", numOfAdults=" + numOfAdults +
                 ", numOfChildren=" + numOfChildren +
-                ", totalNumOfGuests=" + totalNumOfGuests +
+                ", totalNumOfGuest=" + totalNumOfGuest +
                 ", bookingConfirmationCode='" + bookingConfirmationCode + '\'' +
                 '}';
     }
-
 }

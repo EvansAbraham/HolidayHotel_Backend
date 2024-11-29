@@ -16,15 +16,16 @@ import java.util.function.Function;
 @Service
 public class JWTUtils {
 
-    private static final long EXPIRATION_TIME = 1000 * 60 * 24 * 7; // for 7 days
+    private static final long EXPIRATION_TIME = 1000 * 60 * 24 * 7; //for 7 days
 
     private final SecretKey Key;
 
-    public JWTUtils(){
-        String secretString = "843567893696976453275974432697R634976R738467TR678T34865R6834R8763T478378637664538745673865783678548735687R3";
-        byte[] keyBytes = Base64.getDecoder().decode(secretString.getBytes(StandardCharsets.UTF_8));
+    public JWTUtils() {
+        String secreteString = "843567893696976453275974432697R634976R738467TR678T34865R6834R8763T478378637664538745673865783678548735687R3";
+        byte[] keyBytes = Base64.getDecoder().decode(secreteString.getBytes(StandardCharsets.UTF_8));
         this.Key = new SecretKeySpec(keyBytes, "HmacSHA256");
-    }//7563a68e-50df-45dd-957e-b442c4263d4a
+
+    }
 
     public String generateToken(UserDetails userDetails) {
         return Jwts.builder()
@@ -34,6 +35,7 @@ public class JWTUtils {
                 .signWith(Key)
                 .compact();
     }
+
     public String extractUsername(String token) {
         return extractClaims(token, Claims::getSubject);
     }
